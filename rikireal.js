@@ -1,8 +1,17 @@
-window.addEventListener('load', function() {
+window.addEventListener("load", () => {
   setTimeout(() => {
-    document.getElementById('loading-screen').style.display = 'none';
-  }, 100); // Bisa diubah ke 2000 atau lebih lama jika ingin
+    document.getElementById("loader").style.display = "none";
+  }, 1000); // animasi minimal 1 detik
 });
+
+ const loaderText = document.getElementById('loader-text');
+  setTimeout(() => {
+    loaderText.textContent = '𝑹𝑬𝑨𝑫𝒀 !';
+  }, 2000);
+  setTimeout(() => {
+    document.getElementById('loader-container').style.display = 'none';
+    document.getElementById('main-app').style.display = 'block';
+  }, 3000);
     
     const salju = "❄︎❅✦❆✧".split('');
     for (let i = 0; i < 60; i++) {
