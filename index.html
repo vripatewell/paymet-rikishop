@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <title>Payment Riki Shop</title>
+</head>
+<!-- Bagian <body> diawali tetap -->
+<body>
+  <div id="clock">
+    <span style="color:red;">[🕰</span>
+    <span id="hari"></span>,
+    <span id="tanggal"></span>
+    <span style="color:red;">🕰]</span>
+    <span id="jam"></span>
+<button class="transparent-btn">
+  <marquee behavior="scroll" direction="left" scrollamount="5">
+    <span style="font-weight: 700;">halo ka selamat datang di website payment kami, silahkan pilih Metode Pembayaran yang tersedia, jangan lupa untuk membawa bukti setelahh tf, agar tidak terjadi hal yang tidak di ingunkan, aku harap tidak salag tf karena nomor yang tersedia sudah benar ❤</span>
+  </marquee>
+</button>
+  </div>
+
+  <div class="payment-box">
+    <img src="logo.jpg" alt="Thumbnail" class="thumbnail" />
+    <div>Metode Pembayaran</div>
+    <button class="neon-btn" onclick="showQR()">QRIS</button>
+
+    <!-- Daftar Copy Box tetap -->
+<!-- DANA -->
+<div class="copy-box">
+  <img src="https://files.catbox.moe/6jtvll.png" class="payment-logo" />
+  <span>Dana</span>
+  <button onclick="showDetail('Dana', '085819066475', 'Ii M***i')">Detail</button>
+</div>
+
+<!-- OVO -->
+<div class="copy-box">
+  <img src="https://files.catbox.moe/dlklwt.jpg" class="payment-logo" />
+  <span>OVO</span>
+  <button onclick="showDetail('OVO', '085775414552', 'R*** S***')">Detail</button>
+</div>
+
+<!-- Gopay -->
+<div class="copy-box">
+  <img src="https://files.catbox.moe/7nz86g.jpg" class="payment-logo" />
+  <span>Gopay</span>
+  <button onclick="showDetail('Gopay', '081400337353', 'R*** S***')">Detail</button>
+</div>
+
+<!-- ShopeePay -->
+<div class="copy-box">
+  <img src="https://files.catbox.moe/6xciye.png" class="payment-logo" />
+  <span>ShopeePay</span>
+  <button onclick="showDetail('ShopeePay', '085891142486', 'rikishop932')">Detail</button>
+</div>
+
+<!-- Pindahkan ini ke luar dari #detail-popup -->
+<div class="detail-popup-qr" id="detail-popup-qr" style="display:none;">
+  <div class="popup-content">
+    <h3>Scan QRIS</h3>
+    <img src="QRIS.png" alt="QRIS" class="qr-image" style="max-width: 300px; width: 100%; height: auto;" />
+    <button onclick="document.getElementById('detail-popup-qr').style.display='none'">Tutup</button>
+  </div>
+</div>
+
+<!-- Popup -->
+<div id="detail-popup" class="detail-popup">
+  <div class="popup-content">
+      <div id="platform-name" class="popup-header-btn">Gopay</div>
+<p>Nama : <span id="platform-owner">Andi Dana</span></p>
+<p>Nomor : <span id="platform-number">085198975399</span>
+  <button onclick="copyNumber()">Copy</button>
+</p>
+    <button class="back-btn" onclick="closeDetail()">Kembali</button>
+  </div>
+  
+<!-- Musik -->
+<audio id="music" src="yaudio.mp3"></audio>
+</div>
+
+  <!-- Tambahan garis pembatas -->
+    <div class="social-title">Sosial Media Admin</div>
+<div style="width: 100%; height: 2px; background-color: cyan; margin: 20px 0;"></div>
+
+  <div class="social-icons">
+    <a href="https://wa.me/6285771555374"><img src="https://img.icons8.com/color/48/whatsapp--v1.png"/></a>
+    <a href="https://www.instagram.com/riki.setore?igsh=dWpvY3EzZ2d4cGI0"><img src="https://img.icons8.com/color/48/instagram-new--v1.png"/></a>
+    <a href="https://www.tiktok.com/@ucok_cj01?_t=ZS-8wcKpfSX6yG&_r=1"><img src="https://img.icons8.com/color/48/tiktok--v1.png"/></a>
+    <a href="https://youtube.com/@rikishopreal"><img src="https://img.icons8.com/color/48/youtube-play.png"/></a>
+    <a href="https://t.me/@rikishopreal"><img src="https://img.icons8.com/color/48/telegram-app--v1.png"/></a>
+  </div>
+  
+  <div id="loading-screen">
+  <div class="loading-text">Loading...</div>
+</div>
+
+  <!-- Salju tetap -->
+<script src="rikireal.js"></script>
+</body>
+</html>
