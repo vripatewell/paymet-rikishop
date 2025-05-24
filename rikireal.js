@@ -1,7 +1,7 @@
 window.addEventListener('load', function() {
   setTimeout(() => {
     document.getElementById('loading-screen').style.display = 'none';
-  }, 1500); // Bisa diubah ke 2000 atau lebih lama jika ingin
+  }, 100); // Bisa diubah ke 2000 atau lebih lama jika ingin
 });
     
     const salju = "❄︎❅✦❆✧".split('');
