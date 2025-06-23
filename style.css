@@ -319,52 +319,65 @@
 }
 
 #detail-popup-qr {
-#detail-popup-qr {
   position: fixed;
-  inset: 0; /* Sama dengan top:0; left:0; right:0; bottom:0 */
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.4);
+  border-radius: 14px;
+  padding: 30px;
   z-index: 9999;
+  display: none;
+  box-shadow: 0 0 25px cyan;
+  color: white;
+  backdrop-filter: blur(1px);
+  animation: fadeIn 0.3s ease;
+  width: 95%;
+  max-width: 500px;
+}
+
+#detail-popup-qr .popup-header-btn {
+  background: #000;
+  color: cyan;
+  font-weight: bold;
+  padding: 12px 30px;
+  border-radius: 14px;
+  border: 2px solid cyan;
+  box-shadow: 0 0 15px cyan, 0 0 30px cyan inset;
+  margin-bottom: 25px;
+  font-size: 22px;
+  text-align: center;
+  text-shadow: 0 0 6px cyan;
 }
 
 #detail-popup-qr .popup-content {
-  background: rgba(0, 0, 0, 0.9);
-  padding: 20px;
-  border-radius: 12px;
   text-align: center;
-  box-shadow: 0 0 20px cyan;
-  width: 90%;
-  max-width: 360px;
-}
-
-.qr-image {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px cyan;
 }
 
 #detail-popup-qr .popup-content h3 {
   color: cyan;
-  text-shadow: 0 0 6px cyan;
+  text-shadow: 0 0 10px cyan;
   margin-bottom: 12px;
   font-size: 20px;
+}
+
+#detail-popup-qr .popup-content img {
+  width: 100%;
+  max-width: 320px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px cyan;
+  margin-bottom: 15px;
 }
 
 #detail-popup-qr .popup-content button {
   background: cyan;
   color: black;
   font-weight: bold;
-  padding: 6px 18px;
-  border: none;
+  padding: 8px 16px;
   border-radius: 8px;
+  border: none;
+  margin-top: 15px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
 @keyframes fadeIn {
