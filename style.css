@@ -331,53 +331,22 @@
   box-shadow: 0 0 25px cyan;
   color: white;
   backdrop-filter: blur(1px);
-  animation: fadeIn 0.3s ease;
-  width: 95%;
-  max-width: 500px;
-}
-
-#detail-popup-qr .popup-header-btn {
-  background: #000;
-  color: cyan;
-  font-weight: bold;
-  padding: 12px 30px;
-  border-radius: 14px;
-  border: 2px solid cyan;
-  box-shadow: 0 0 15px cyan, 0 0 30px cyan inset;
-  margin-bottom: 25px;
-  font-size: 22px;
-  text-align: center;
-  text-shadow: 0 0 6px cyan;
+  width: 90%;
+  max-width: 400px;
 }
 
 #detail-popup-qr .popup-content {
   text-align: center;
 }
 
-#detail-popup-qr .popup-content h3 {
-  color: cyan;
-  text-shadow: 0 0 10px cyan;
-  margin-bottom: 12px;
-  font-size: 20px;
-}
-
-#detail-popup-qr .popup-content img {
+#detail-popup-qr .popup-content .qr-image {
   width: 100%;
-  max-width: 320px;
+  max-width: 300px;
+  height: auto;
+  margin: 0 auto;
+  display: block;
   border-radius: 10px;
   box-shadow: 0 0 15px cyan;
-  margin-bottom: 15px;
-}
-
-#detail-popup-qr .popup-content button {
-  background: cyan;
-  color: black;
-  font-weight: bold;
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: none;
-  margin-top: 15px;
-  cursor: pointer;
 }
 
 @keyframes fadeIn {
