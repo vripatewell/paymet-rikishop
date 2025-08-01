@@ -7,11 +7,11 @@ window.addEventListener("load", () => {
  const loaderText = document.getElementById('loader-text');
   setTimeout(() => {
     loaderText.textContent = '𝑹𝑬𝑨𝑫𝒀 !';
-  }, 2000);
+  }, 1000);
   setTimeout(() => {
     document.getElementById('loader-container').style.display = 'none';
     document.getElementById('main-app').style.display = 'block';
-  }, 3000);
+  }, 1500);
     
     const salju = "❄︎❅✦❆✧".split('');
     for (let i = 0; i < 60; i++) {
@@ -77,12 +77,6 @@ function showDetail(platform, number, owner) {
   document.getElementById("platform-owner").innerText = owner;
   currentNumber = number;
   document.getElementById("detail-popup").style.display = "block";
-
-  // Play music once
-  const music = document.getElementById("music");
-  if (music && music.paused) {
-    music.play();
-  }
 }
 
 function closeDetail() {
@@ -91,6 +85,69 @@ function closeDetail() {
 
 function copyNumber() {
   navigator.clipboard.writeText(currentNumber).then(() => {
-    alert("Nomor disalin: " + currentNumber);
+    const notif = document.createElement("div");
+    notif.innerText = `✅ Nomor ${currentNumber} berhasil disalin!`;
+    notif.style.position = "fixed";
+    notif.style.bottom = "20px";
+    notif.style.left = "50%";
+    notif.style.transform = "translateX(-50%)";
+    notif.style.background = "rgba(0,0,0,0.8)";
+    notif.style.color = "cyan";
+    notif.style.padding = "10px 20px";
+    notif.style.borderRadius = "10px";
+    notif.style.boxShadow = "0 0 10px cyan";
+    notif.style.zIndex = "9999";
+    document.body.appendChild(notif);
+    setTimeout(() => notif.remove(), 2000);
   });
+}
+const texts = [
+  "Halo, selamat datang!",
+  "Website payment Riki",
+  "Klik Go to Payment",
+  "Pilih metode yang tersedia"
+];
+
+let i = 0, j = 0, isDeleting = false;
+const el = document.getElementById("typing-text");
+
+function typeEffect() {
+  const current = texts[i];
+  el.innerHTML = current.substring(0, j) + (j % 2 === 0 ? '|' : '');
+
+  if (!isDeleting && j <= current.length) {
+    j++;
+    setTimeout(typeEffect, 100);
+  } else if (isDeleting && j >= 0) {
+    j--;
+    setTimeout(typeEffect, 50);
+  } else {
+    isDeleting = !isDeleting;
+    if (!isDeleting) i = (i + 1) % texts.length;
+    setTimeout(typeEffect, 1000);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", typeEffect);
+
+function showPayment() {
+  const nutEffect = document.getElementById("nut-effect");
+
+  // Reset animasi
+  nutEffect.style.animation = "none";
+  nutEffect.style.opacity = "1";
+  void nutEffect.offsetWidth; // force reflow
+
+  // Jalankan animasi zoom-out nut-nut
+  nutEffect.style.animation = "nutZoomOut 1.5s ease-out forwards";
+
+  // Setelah animasi selesai, baru tampilkan website
+  setTimeout(() => {
+    document.getElementById("flash-sound").play();
+    document.getElementById("welcome-screen").style.display = "none";
+    document.getElementById("bgVideo").style.display = "block";
+    document.getElementById("bgVideo").muted = false;
+    document.getElementById("bgVideo").play();
+    document.getElementById('main-app').style.display = 'block';
+  }, 1500);
 }

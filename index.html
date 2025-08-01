@@ -7,8 +7,79 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
   <title>Payment Riki Shop</title>
 </head>
+<audio id="flash-sound" src="transition.mp3" preload="auto"></audio>
 <!-- Bagian <body> diawali tetap -->
 <body>
+  <audio id="flash-sound" src="transition.mp3" preload="auto"></audio>
+  <audio id="touch-sound" src="meko"></audio>
+<audio id="cheer-sound" src="https://www.myinstants.com/media/sounds/cheering.mp3"></audio>
+  <div id="flash-effect" style="
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  opacity: 0;
+  z-index: 999999;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+"></div>
+<!-- WELCOME SCREEN FULL FIX -->
+<div id="welcome-screen" style="
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  color: cyan;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: 'Orbitron', sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+">
+    <div id="snake-container">
+    <div id="target"></div>
+    <div id="house">🏠</div>
+    <div id="message-box">🎉 Terima kasih sudah bermain di website Payment Riki 🎉</div>
+  </div>
+  <div id="nut-effect"></div>
+  <div style="
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+    width: 100%;
+  ">
+    <h1 style="font-size: 32px; margin-bottom: 16px; text-shadow: 0 0 10px cyan;">Hey, I'm Riki</h1>
+    <p style="font-size: 16px; max-width: 90%; margin-bottom: 25px;">
+      Selamat datang di website simpel paymentku,<br>aku harap tidak salah tf ya ^-^
+    </p>
+    <a href="#" onclick="showPayment()" style="
+      background: cyan;
+      color: black;
+      font-weight: bold;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 16px;
+      box-shadow: 0 0 12px cyan;
+      transition: 0.3s ease;
+    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+      Go to Payment
+    </a>
+  </div>
+</div>
+  
+<video id="bgVideo" muted autoplay loop style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; object-fit: cover; z-index: -1;">
+  <source src="namafilevideo.mp4" type="video/mp4" />
+</video>
+
   <div id="clock">
     <span style="color:red;">[🕰</span>
     <span id="hari"></span>,
@@ -69,8 +140,8 @@
 <div id="detail-popup" class="detail-popup">
   <div class="popup-content">
       <div id="platform-name" class="popup-header-btn">Gopay</div>
-<p>Nama : <span id="platform-owner">Andi Dana</span></p>
-<p>Nomor : <span id="platform-number">085198975399</span>
+<p>Nama : <span id="platform-owner">Riki</span></p>
+<p>Nomor : <span id="platform-number">6285819066475</span>
   <button onclick="copyNumber()">Copy</button>
 </p>
     <button class="back-btn" onclick="closeDetail()">Kembali</button>
@@ -85,10 +156,10 @@
 <div style="width: 100%; height: 2px; background-color: cyan; margin: 20px 0;"></div>
 
   <div class="social-icons">
-    <a href="https://wa.me/6285771555374"><img src="https://img.icons8.com/color/48/whatsapp--v1.png"/></a>
-    <a href="https://www.instagram.com/riki.setore?igsh=dWpvY3EzZ2d4cGI0"><img src="https://img.icons8.com/color/48/instagram-new--v1.png"/></a>
-    <a href="https://www.tiktok.com/@ucok_cj01?_t=ZS-8wcKpfSX6yG&_r=1"><img src="https://img.icons8.com/color/48/tiktok--v1.png"/></a>
-    <a href="https://youtube.com/@rikishopreal"><img src="https://img.icons8.com/color/48/youtube-play.png"/></a>
+    <a href="https://wa.me/6285819066475"><img src="https://img.icons8.com/color/48/whatsapp--v1.png"/></a>
+    <a href="https://www.instagram.com/riki_tampan_kata_mamah"><img src="https://img.icons8.com/color/48/instagram-new--v1.png"/></a>
+    <a href="https://www.tiktok.com/@riki_tampan_kata_mamah"><img src="https://img.icons8.com/color/48/tiktok--v1.png"/></a>
+    <a href="https://youtube.com/@riki_tampan_kata_mamah"><img src="https://img.icons8.com/color/48/youtube-play.png"/></a>
     <a href="https://t.me/@rikishopreal"><img src="https://img.icons8.com/color/48/telegram-app--v1.png"/></a>
   </div>
   
@@ -99,5 +170,161 @@
 
   <!-- Salju tetap -->
 <script src="rikireal.js"></script>
+<script>
+let segments = [], trail = [], target = null;
+let speed = 2.5, angle = Math.random() * 2 * Math.PI;
+let inHouse = false, entering = false;
+const spacing = 10, segmentSize = 24;
+let head;
+
+const touchSound = document.getElementById('touch-sound');
+const cheer = document.getElementById('cheer-sound');
+const targetDot = document.getElementById('target');
+const house = document.getElementById('house');
+const messageBox = document.getElementById('message-box');
+
+function createSegment(emoji, x, y) {
+  const el = document.createElement('div');
+  el.className = 'segment';
+  el.textContent = emoji;
+  document.getElementById("snake-container").appendChild(el);
+  return { x, y, el };
+}
+
+function resetSnake() {
+  segments.forEach(s => s.el.remove());
+  segments.length = 0;
+  trail.length = 0;
+  head = createSegment("🤤", window.innerWidth/2, window.innerHeight/2);
+  segments.push(head);
+  segments.push(createSegment("🟣", head.x - 30, head.y));
+}
+
+function showEmojiHujan() {
+  const emojiList = ['🎉', '🎊', '🥳', '✨', '💥'];
+  const interval = setInterval(() => {
+    const e = document.createElement("div");
+    e.className = "emoji-hujan";
+    e.style.left = Math.random() * window.innerWidth + "px";
+    e.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+    document.body.appendChild(e);
+    setTimeout(() => e.remove(), 5000);
+  }, 200);
+  setTimeout(() => clearInterval(interval), 5000);
+}
+
+function ledakKembangApi() {
+  const interval = setInterval(() => {
+    const f = document.createElement("div");
+    f.className = "firework";
+    f.style.left = Math.random() * window.innerWidth + "px";
+    f.style.top = Math.random() * window.innerHeight + "px";
+    document.body.appendChild(f);
+    setTimeout(() => f.remove(), 800);
+  }, 200);
+  setTimeout(() => clearInterval(interval), 5000);
+}
+
+function startThankYouSequence() {
+  cheer.currentTime = 0;
+  cheer.play();
+  messageBox.style.display = 'block';
+  showEmojiHujan();
+  ledakKembangApi();
+  setTimeout(() => {
+    messageBox.style.display = 'none';
+    resetSnake();
+    inHouse = false;
+  }, 6000);
+}
+
+function animate() {
+  if (!document.getElementById("snake-container")) return;
+
+  if (target && !inHouse) {
+    const dx = target.x - head.x;
+    const dy = target.y - head.y;
+    const dist = Math.hypot(dx, dy);
+    if (dist > 1) {
+      angle = Math.atan2(dy, dx);
+      head.x += Math.cos(angle) * speed;
+      head.y += Math.sin(angle) * speed;
+    }
+
+    if (dist < 14) {
+      if (entering) {
+        inHouse = true; entering = false;
+        startThankYouSequence();
+      } else {
+        const last = segments[segments.length - 1];
+        const newSeg = createSegment("🟣", last.x, last.y);
+        segments.push(newSeg);
+        touchSound.currentTime = 0;
+        touchSound.play();
+      }
+      target = null;
+      targetDot.style.display = 'none';
+    }
+  } else if (!inHouse) {
+    head.x += Math.cos(angle) * speed;
+    head.y += Math.sin(angle) * speed;
+  }
+
+  if (!inHouse) {
+    if (head.x < 0 || head.x > innerWidth - segmentSize) angle = Math.PI - angle;
+    if (head.y < 0 || head.y > innerHeight - segmentSize) angle = -angle;
+  }
+
+  trail.unshift({ x: head.x, y: head.y });
+  const maxTrail = segments.length * spacing * 1.5;
+  if (trail.length > maxTrail) trail.pop();
+
+  head.el.style.transform = `translate(${head.x}px, ${head.y}px) rotate(${angle}rad)`;
+  for (let i = 1; i < segments.length; i++) {
+    const point = trail[i * spacing];
+    if (point) {
+      segments[i].x = point.x;
+      segments[i].y = point.y;
+      const next = trail[i * spacing - 1] || point;
+      const bodyAngle = Math.atan2(next.y - point.y, next.x - point.x);
+      segments[i].el.style.transform = `translate(${point.x}px, ${point.y}px) rotate(${bodyAngle}rad)`;
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+document.addEventListener('click', (e) => {
+  if (!document.getElementById("snake-container")) return;
+
+  const rect = house.getBoundingClientRect();
+  const inside = e.clientX >= rect.left && e.clientX <= rect.right &&
+                 e.clientY >= rect.top && e.clientY <= rect.bottom;
+  if (inside && !entering && !inHouse) {
+    target = { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 };
+    entering = true;
+  } else if (!entering && !inHouse) {
+    target = { x: e.clientX, y: e.clientY };
+    targetDot.style.left = `${target.x - 7}px`;
+    targetDot.style.top = `${target.y - 7}px`;
+    targetDot.style.display = 'block';
+  }
+});
+
+function startSnake() {
+  resetSnake();
+  animate();
+}
+
+function goToPayment() {
+  document.getElementById("welcome-screen").style.display = "none";
+  document.getElementById("main-app").style.display = "flex";
+  document.getElementById("snake-container").remove();
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  startSnake();
+});
+</script>
 </body>
 </html>
