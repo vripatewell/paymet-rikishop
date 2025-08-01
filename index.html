@@ -195,7 +195,7 @@ function resetSnake() {
   segments.forEach(s => s.el.remove());
   segments.length = 0;
   trail.length = 0;
-  head = createSegment("🤤", window.innerWidth/2, window.innerHeight/2);
+  head = createSegment("🤡", window.innerWidth/2, window.innerHeight/2);
   segments.push(head);
   segments.push(createSegment("🟣", head.x - 30, head.y));
 }
